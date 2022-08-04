@@ -24,7 +24,7 @@ $$\bar{X}_n = \frac{1}{n} (X_1 + \cdots + X_n)$$
 
 $$n \to \infty \Longrightarrow \bar{X_n} \to \mu$$
 
-This is sampling from a $Uniform(-1e5, 1e5)$
+This is sampling from a Uniform(-10^5, 10^5)
 
 [[file:./media/LLN.gif]]
 
@@ -34,17 +34,17 @@ This is sampling from a $Uniform(-1e5, 1e5)$
 * Berry-Esseen Theorem - Binomial Case [[[https://ubt.opus.hbz-nrw.de/opus45-ubtr/frontdoor/deliver/index/docId/732/file/Dissertation_Schulz.pdf][Ref (Thm 1)]]]
 Theorem 1 Verbatim:
 
-Let $p \in (0,1)$ and $n \in \mathbb{N}$ and let $F_{n,p}$ denote the distribution function of the binomial distribution with parameters $n$ and $p$. Then we have with $q := 1 - p$
+Let $p \in (0,1)$ and $n \in \mathbb{N}$ and let F_{n,p} denote the distribution function of the binomial distribution with parameters $n$ and $p$. Then we have with $q := 1 - p$
 
-$$\sup_{x \in \mathbb{R}}{\left|F_{n,p}(x) - \Phi\left(\frac{x - np}{\sqrt{npq}}\right) \right| < \frac{\sqrt{10} + 3}{6\sqrt{2\pi}} \cdot \frac{p^2 + q^2}{\sqrt{npq}} }$$
+$$sup_{x \in \mathbb{R}}{\left|F_{n,p}(x) - \Phi\left(\frac{x - np}{\sqrt{npq}}\right) \right| < \frac{\sqrt{10} + 3}{6\sqrt{2\pi}} \cdot \frac{p^2 + q^2}{\sqrt{npq}} }$$
 
 In the case $p \in \left[\frac{1}{3}, \frac{2}{3}\right]$ we even have the sharper inequality
 
-$$\sup_{x \in \mathbb{R}}{\left|F_{n,p}(x) - \Phi\left(\frac{x - np}{\sqrt{npq}}\right) \right| < \frac{3 + |p - q|}{6\sqrt{2\pi}\sqrt{npq}} }$$
+$$sup_{x \in \mathbb{R}}{\left|F_{n,p}(x) - \Phi\left(\frac{x - np}{\sqrt{npq}}\right) \right| < \frac{3 + |p - q|}{6\sqrt{2\pi}\sqrt{npq}} }$$
 
 ----------
 
-This is a specific version of the [[https://en.wikipedia.org/wiki/Berry%E2%80%93Esseen_theorem#cite_note-1][Berry-Esseen Theorem]], which states that the distribution of the sample means from a specific subset of random variables will converge to the standard normal, by an order of $\frac{1}{n}$.
+This is a specific version of the [[https://en.wikipedia.org/wiki/Berry%E2%80%93Esseen_theorem#cite_note-1][Berry-Esseen Theorem]], which states that the distribution of the sample means from a specific subset of random variables will converge to the standard normal, by an order of $\frac{1}{\sqrt{n}}$.
 
 This Binomial variant gives two bounds, the first being general for all values of p, and the second being tighter but only for the middle third range.
 
@@ -61,7 +61,7 @@ for n = 5, 10, 50, ...
 Binomial BE Heatmap (n = 500, tight = false)
 [[file:./media/BE_binom_heatmap_500.png]]
 
-Binomial BE Slice (n = 20, tightbound)
+Binomial BE Slice (n = 20, tight = true)
 [[file:./media/BE_binom_slice.png]]
 
 We can also check that none of the tight errors are negative in the middle third, but are in the outer two thirds:
@@ -70,10 +70,9 @@ We can also check that none of the tight errors are negative in the middle third
 julia -e "include(\"ProbTheory.jl\"); BE_binom_bounds(1000)"
 #+end_src
 
-#+RESULTS:
 For n = 1000 on p = [0.001, 0.999], there are 183 negative differences.
-For n = 1000 on p = [0.333, 0.666], there are 0 negative differences.
 
+For n = 1000 on p = [0.333, 0.666], there are 0 negative differences.
 
 * Appendix
 ** Reference
