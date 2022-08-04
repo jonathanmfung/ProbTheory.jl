@@ -7,7 +7,7 @@ A script aiming to visualize basic probability theory concepts.
 julia -e "include(\"ProbTheory.jl\");
           LLN();
           CLT();
-          BE_binom_heatmap();
+          BE_binom_heatmap(tight = false);
           BE_binom_slice()"
 #+end_src
 

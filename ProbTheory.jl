@@ -28,6 +28,9 @@ function LLN(;n = 600, file = "LLN.gif")
         fps = 60)
 end
 
+# TODO
+# https://en.wikipedia.org/wiki/De_Moivre%E2%80%93Laplace_theorem
+
 "    https://en.wikipedia.org/wiki/Central_limit_theorem#Classical_CLT"
 function CLT(;n = 600, file = "CLT.gif")
     Random.seed!(1234)
@@ -68,14 +71,21 @@ end
 
 function BE_binom_heatmap(; n = 500,
                           pstart = 0.001, pend = 0.999, len = 999,
-                          file = "BE_binom_heatmap.png")
+                          file = "BE_binom_heatmap.png",
+                          tight = true)
     ps = range(pstart, pend, length = len)
     vals = BE_binom.(Base.product(1:n, ps))
 
-    difs = getindex.(vals, 3) - getindex.(vals, 1)
+    if tight
+        bnd = "tightbound"
+        difs = getindex.(vals, 3) - getindex.(vals, 1)
+    else
+        bnd = "regbound"
+        difs = getindex.(vals, 2) - getindex.(vals, 1)
+    end
 
     plt = heatmap(difs.^(1/16),
-                  xlab = "p * 1000", ylab = "n", colorbar_title = "tightbound - ksdist",
+                  xlab = "p · 1000", ylab = "n", colorbar_title = "$bnd - ksdist",
                   xtick = 0:200:1000,
                   ytick = 0:100:n,
                   c = :Blues,
@@ -133,3 +143,8 @@ function BE_binom_bounds(n :: Int64)
     validate(n, 0.001, 0.999)
     validate(n, 0.333, 0.666)
 end
+
+
+# TODO
+# Since so many use BE_binom.(Base.product(1:n, ps))
+# should probably precompute then use in plotting functions
