@@ -3,7 +3,7 @@
 * ProbTheory.jl
 A script aiming to visualize basic probability theory concepts.
 
-#+begin_src sh :results none :async
+#+begin_src sh :results none
 julia -e "include(\"ProbTheory.jl\");
           LLN();
           CLT();
@@ -19,27 +19,17 @@ currently ess isn't working with org-babel
 #+LATEX_HEADER: \setmainfont[]{IBM Plex Sans}
 #+LATEX_HEADER: \setmonofont[]{Iosevka SS14}
 #+end_comment
-* Law of Large Numbers
-#+begin_center
-LLN (n = 600)
-#+end_center
+* Law of Large Numbers (n = 600)
 [[file:./media/LLN.gif]]
 
-* Central Limit Theorem - Classical
-#+begin_center
-CLT (n = 600)
-#+end_center
+* Central Limit Theorem - Classical (n = 600)
 [[file:./media/CLT.gif]]
 
 * Berry-Esseen Theorem - Binomial Case
-#+begin_center
 Binomial BE Heatmap (n = 500, tightbound)
-#+end_center
 [[file:./media/BE_binom_heatmap_500.png]]
 
-#+begin_center
 Binomial BE Slice (n = 20, tightbound)
-#+end_center
 [[file:./media/BE_binom_slice.png]]
 
 NOTE
@@ -49,18 +39,20 @@ by plotting the two cdfs and line between
 for n = 5, 10, 50, ...
 
 
-#+begin_src sh :results output
+#+begin_src sh :results output org
 julia -e "include(\"ProbTheory.jl\"); BE_binom_bounds(1000)"
 #+end_src
 
 #+RESULTS:
-: For n = 1000 on p = [0.001, 0.999], there are 183 negative differences.
-: For n = 1000 on p = [0.333, 0.666], there are 0 negative differences.
+#+begin_src org
+For n = 1000 on p = [0.001, 0.999], there are 183 negative differences.
+For n = 1000 on p = [0.333, 0.666], there are 0 negative differences.
+#+end_src
 
 
 * Appendix
 ** Reference
-$$$E[X] = \int_{-\infty}^\infty xf(x)dx$$
+$$E[X] = \int_{-\infty}^{\infty} xf(x)dx$$
 
 $$f(x) = \frac{1}{b-a}$$
 
