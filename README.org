@@ -1,0 +1,87 @@
+#+PROPERTY: header-args:R :results none
+
+* ProbTheory.jl
+A script aimed to visualize basic probability theory concepts.
+
+#+begin_src sh :results none :async
+julia -e "include(\"ProbTheory.jl\");
+          LLN();
+          CLT();
+          BE_binom_heatmap();
+          BE_binom_slice()"
+#+end_src
+
+#+begin_comment
+currently ess isn't working with org-babel
+
+#+LATEX_CLASS: notes
+#+LATEX_HEADER: \usepackage{fontspec}
+#+LATEX_HEADER: \setmainfont[]{IBM Plex Sans}
+#+LATEX_HEADER: \setmonofont[]{Iosevka SS14}
+#+end_comment
+* Law of Large Numbers
+
+#+CAPTION: LLN (n = 600)
+[[file:./media/LLN.gif]]
+* Central Limit Theorem - Classical
+
+#+CAPTION: CLT (n = 600)
+[[file:./media/CLT.gif]]
+* Berry-Esseen Theorem - Binomial Case
+
+#+CAPTION: Binomial BE Heatmap (n = 500, tightbound)
+[[file:./media/BE_binom_heatmap_500.png]]
+
+#+CAPTION: Binomial BE Slice (n = 20, tightbound)
+[[file:./media/BE_binom_slice.png]]
+
+NOTE
+When writing about BE,
+Need to show what ksdistance is
+by plotting the two cdfs and line between
+for n = 5, 10, 50, ...
+
+
+#+begin_src sh :results output
+julia -e "include(\"ProbTheory.jl\"); BE_binom_bounds(1000)"
+#+end_src
+
+#+RESULTS:
+: For n = 1000 on p = [0.001, 0.999], there are 183 negative differences.
+: For n = 1000 on p = [0.333, 0.666], there are 0 negative differences.
+
+
+* Appendix
+** Reference
+$E[X] = \int_{-\infty}^\infty xf(x)dx$
+
+$$f(x) = \frac{1}{b-a}$$
+
+** Expectations
+\(E[X] = \int_a^b x \frac{1}{b-a} = \frac{1}{2(b-a)} [x^2]_a^b = \frac{a+b}{2}\)
+
+\(E[X^2] = \int_a^b x^2 \frac{1}{b-a} = \frac{1}{3(b-a)} [x^3]_a^b = \frac{(b-a)(b^2 + ba + a^2)}{3(b-a)} = \frac{b^2 + ba + a^2}{3}\)
+
+** Checking the Variance
+
+\(Var(X) = E[X^2] - E[X]^2\)
+
+\(Var(X) = \frac{b^2 + ba + a^2}{3} - (\frac{a+b}{2})^2\)
+
+\(Var(X) = \frac{b^2 + ba + a^2}{3} - \frac{a^2+2ab+b^2}{4}\)
+
+\(Var(X) = \frac{4b^2 + 4ba + 4a^2}{12} - \frac{3a^2+6ab+3b^2}{12}\)
+
+\(Var(X) = \frac{b^2 - 2ba + a^2}{12} = \frac{(b-a)^2}{12}\)
+
+** E[|X|^3]
+
+\(E[|X|^3] = \int_a^b |x|^3 \frac{1}{b-a}\)
+
+\( = \frac{1}{b-a} (\int_a^0 -x^3  + \int_0^b x^3)\)
+
+\( = \frac{1}{b-a} (-\frac{1}{4}[x^4]_a^0  + \frac{1}{4}[x^4]_0^b)\)
+
+\( = \frac{1}{b-a} (\frac{1}{4}a^4  + \frac{1}{4}b^4)\)
+
+\( = \frac{1}{4} \frac{1}{b-a} (a^4  + b^4)\)
