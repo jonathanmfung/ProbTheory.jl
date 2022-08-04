@@ -4,8 +4,6 @@ using Distributions
 using Plots
 
 
-u = Uniform(-1e5, 1e5) # floatmax(Float32)
-
 sample_avg(xs) = mean(xs)
 cummean(A) = cumsum(A) ./ (1:length(A))
 
@@ -14,11 +12,12 @@ const MEDIA_DIR = joinpath(@__DIR__, "media")
 "    https://en.wikipedia.org/wiki/Law_of_large_numbers#Forms"
 function LLN(;n = 600, file = "LLN.gif")
     Random.seed!(1234)
+    u = Uniform(-1e5, 1e5) # floatmax(Float32)
 
     v = cummean(rand(u,n))
     plt = plot(1, xlims=(0,n), title = "LLN",
                   xlab = "n", ylab = "sample mean",
-                  dpi = 600)
+                  dpi = 200)
     hline!(plt, [0], color = "red", label = "population mean")
 
     anim = @animate for i ∈ 1:n
@@ -32,6 +31,7 @@ end
 "    https://en.wikipedia.org/wiki/Central_limit_theorem#Classical_CLT"
 function CLT(;n = 600, file = "CLT.gif")
     Random.seed!(1234)
+    u = Uniform(-1e5, 1e5) # floatmax(Float32)
 
     v = Vector{Float64}()
     anim = @animate for i ∈ 1:n
@@ -39,7 +39,7 @@ function CLT(;n = 600, file = "CLT.gif")
         histogram(v, xlims=(-3e4,3e4), ylims=(0,100),
                   bins = 20, legend = false, title = "CLT",
                   xlab = "sample mean", ylab = "count",
-                  dpi = 600)
+                  dpi = 200)
     end
     gif(anim,
         joinpath(MEDIA_DIR, file),
