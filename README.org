@@ -25,7 +25,7 @@ $$\bar{X}_n = \frac{1}{n} (X_1 + \cdots + X_n)$$
 
 $$n \to \infty \Longrightarrow \bar{X_n} \to \mu$$
 
-This is sampling from a Uniform(-100000, 100000)
+This is sampling from a Uniform(-100000, 100000), so $\mu = 0$
 
 [[file:./media/LLN.gif]]
 
@@ -70,15 +70,13 @@ Binomial BE Slice (n = 20, tight = true)
 
 We can also check that none of the tight errors are negative in the middle third, but are in the outer two thirds:
 
-#+begin_src sh :results output code
+#+begin_src sh :results output raw
 julia -e "include(\"ProbTheory.jl\"); BE_binom_bounds(1000)"
 #+end_src
 
-#+RESULTS:
-#+begin_src
 For n = 1000 on p = [0.001, 0.999], there are 183 negative differences.
+
 For n = 1000 on p = [0.333, 0.666], there are 0 negative differences.
-#+end_src
 
 * Appendix
 ** Reference
