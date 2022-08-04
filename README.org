@@ -20,19 +20,26 @@ currently ess isn't working with org-babel
 #+LATEX_HEADER: \setmonofont[]{Iosevka SS14}
 #+end_comment
 * Law of Large Numbers
-
-#+CAPTION: LLN (n = 600)
+#+begin_center
+LLN (n = 600)
+#+end_center
 [[file:./media/LLN.gif]]
+
 * Central Limit Theorem - Classical
-
-#+CAPTION: CLT (n = 600)
+#+begin_center
+CLT (n = 600)
+#+end_center
 [[file:./media/CLT.gif]]
-* Berry-Esseen Theorem - Binomial Case
 
-#+CAPTION: Binomial BE Heatmap (n = 500, tightbound)
+* Berry-Esseen Theorem - Binomial Case
+#+begin_center
+Binomial BE Heatmap (n = 500, tightbound)
+#+end_center
 [[file:./media/BE_binom_heatmap_500.png]]
 
-#+CAPTION: Binomial BE Slice (n = 20, tightbound)
+#+begin_center
+Binomial BE Slice (n = 20, tightbound)
+#+end_center
 [[file:./media/BE_binom_slice.png]]
 
 NOTE
