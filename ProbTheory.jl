@@ -17,7 +17,8 @@ function LLN(;n = 600, file = "LLN.gif")
 
     v = cummean(rand(u,n))
     plt = plot(1, xlims=(0,n), title = "LLN",
-                  xlab = "n", ylab = "sample mean")
+                  xlab = "n", ylab = "sample mean",
+                  dpi = 600)
     hline!(plt, [0], color = "red", label = "population mean")
 
     anim = @animate for i ∈ 1:n
@@ -37,7 +38,8 @@ function CLT(;n = 600, file = "CLT.gif")
         push!(v, sample_avg(rand(u,100)))
         histogram(v, xlims=(-3e4,3e4), ylims=(0,100),
                   bins = 20, legend = false, title = "CLT",
-                  xlab = "sample mean", ylab = "count")
+                  xlab = "sample mean", ylab = "count",
+                  dpi = 600)
     end
     gif(anim,
         joinpath(MEDIA_DIR, file),
