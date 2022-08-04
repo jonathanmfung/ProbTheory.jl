@@ -95,7 +95,7 @@ function BE_binom_heatmap(; n = 500,
     # surface(difs.^(1/16), c = :Blues, camera = (210, 30))
 
     name, ext = splitext(file)
-    file_ = string(name, "_", n, ext)
+    file_ = string(name, "_", n, "_", bnd, ext)
 
     savefig(plt,
             joinpath(MEDIA_DIR, file_))
